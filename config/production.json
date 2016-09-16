@@ -1,0 +1,34 @@
+{
+  "host": "Wellnow API-app.feathersjs.com",
+  "port": 80,
+  "postgres": "DATABASE_URL",
+  "public": "../public/",
+  "auth": {
+    "idField": "id",
+    "token": {
+      "secret": "FEATHERS_AUTH_SECRET"
+    },
+    "local": {},
+    "facebook": {
+      "clientID": "your facebook client id",
+      "clientSecret": "your facebook client secret",
+      "permissions": {
+        "scope": ["public_profile","email"]
+      }
+    },
+    "google": {
+      "clientID": "your google client id",
+      "clientSecret": "your google client secret",
+      "permissions": {
+        "scope": ["profile"]
+      }
+    },
+    "linkedin": {
+      "clientID": "your linkedin client id",
+      "clientSecret": "your linkedin client secret",
+      "permissions": {
+        "scope": ["r_emailaddress","r_basicprofile"]
+      }
+    }
+  }
+}
