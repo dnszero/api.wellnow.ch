@@ -44,7 +44,8 @@
     "pg-hstore": "^2.3.2",
     "sequelize": "^3.24.3",
     "serve-favicon": "^2.3.0",
-    "winston": "^2.2.0"
+    "winston": "^2.2.0",
+    "jsonapi-serializer": "^3.3.0"
   },
   "devDependencies": {
     "jshint": "^2.9.3",

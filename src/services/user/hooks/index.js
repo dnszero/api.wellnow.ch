@@ -41,7 +41,7 @@ exports.before = {
 };
 
 exports.after = {
-  all: [hooks.remove('password')],
+  all: [hooks.remove('password'), globalHooks.jsonapiSerialize()],
   find: [],
   get: [],
   create: [],
