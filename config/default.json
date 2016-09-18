@@ -5,6 +5,7 @@
   "db_dialect": "postgres",
   "postgres": "postgres://lionelrudaz:@localhost:5432/wellnow",
   "public": "../public/",
+  "allowed_origins": ["http://localhost:4200"],
   "auth": {
     "idField": "id",
     "token": {
