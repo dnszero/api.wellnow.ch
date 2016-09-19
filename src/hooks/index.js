@@ -16,7 +16,7 @@ exports.myHook = function(options) {
 
 exports.jsonapiSerialize = function (type, opts) {
   return function(hook) {
-    console.log(hook.result);
+    //console.log(hook.result);
 
     let modelName, attributes;
 

@@ -1,4 +1,5 @@
 'use strict';
+const category = require('./category');
 const doctor = require('./doctor');
 const authentication = require('./authentication');
 const user = require('./user');
@@ -15,4 +16,5 @@ module.exports = function() {
   app.configure(authentication);
   app.configure(user);
   app.configure(doctor);
+  app.configure(category);
 };
