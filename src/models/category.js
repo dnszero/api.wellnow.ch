@@ -10,14 +10,14 @@ module.exports = function() {
       primaryKey: true,
       autoIncrement: true
     },
-    name : {
+    /*name : {
       type: Sequelize.STRING,
       i18n: true
     },
     slug : {
       type: Sequelize.STRING,
       i18n: true
-    },
+    },*/
     rank: {
       type: Sequelize.INTEGER,
       defaultValue: 0,

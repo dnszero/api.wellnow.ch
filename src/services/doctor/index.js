@@ -18,10 +18,10 @@ module.exports = function(){
   };
 
   // Initialize our service with any options it requires
-  app.use('/doctors', service(options));
+  app.use('/api/v1/doctors', service(options));
 
   // Get our initialize service to that we can bind hooks
-  const doctorService = app.service('/doctors');
+  const doctorService = app.service('/api/v1/doctors');
 
   // Set up our before hooks
   doctorService.before(hooks.before);

@@ -1,6 +1,8 @@
 const doctor = require('./doctor');
 const user = require('./user');
 const category = require('./category');
+const categoryTranslation = require('./category-translation');
+const language = require('./language');
 const Sequelize = require('sequelize');
 const SequelizeI18N = require('sequelize-i18n');
 
@@ -27,14 +29,26 @@ module.exports = function() {
   app.configure(user);
   app.configure(doctor);
   app.configure(category);
+  app.configure(categoryTranslation);
+  app.configure(language);
+
+  const models = sequelize.models;
 
   app.set('models', sequelize.models);
 
-  Object.keys(sequelize.models).forEach(function(modelName) {
+  console.log(models);
+
+  models.categories.belongsToMany(models.languages, {through: models.categoriestranslations});
+  models.categories.hasMany(models.categoriestranslations);
+  models.languages.belongsToMany(models.categories, {through: models.categoriestranslations});
+
+  /*Object.keys(sequelize.models).forEach(function(modelName) {
     if ("associate" in sequelize.models[modelName]) {
       sequelize.models[modelName].associate();
     }
-  });
+  });*/
+
+  //console.log(sequelize);
 
   sequelize.sync();
 };

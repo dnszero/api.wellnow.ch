@@ -43,8 +43,9 @@ app.use(compress())
   .configure(hooks())
   .configure(rest(restFormatter))
   .configure(socketio())
+  .configure(middleware)
   .configure(models)
-  .configure(services)
-  .configure(middleware);
+  .configure(services);
+  //.configure(middleware);
 
 module.exports = app;

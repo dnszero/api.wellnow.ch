@@ -2,7 +2,6 @@
 
 const globalHooks = require('../../../hooks');
 const hooks = require('feathers-hooks');
-const translate = require('./translate');
 
 
 exports.before = {
@@ -10,15 +9,13 @@ exports.before = {
   find: [],
   get: [],
   create: [],
-  //create: [translate()],
   update: [],
   patch: [],
   remove: []
 };
 
 exports.after = {
-  all: [globalHooks.jsonapiSerialize({modelName: 'categories', attributes: ['name', 'slug', 'rank', 'createdAt', 'updatedAt', 'test']})],
-  //all: [],
+  all: [globalHooks.jsonapiSerialize()],
   find: [],
   get: [],
   create: [],
