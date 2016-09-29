@@ -24,7 +24,7 @@ function restFormatter(req, res) {
     'application/vnd.api+json': function() {
       console.log('res.data');
       console.log(res.data);
-      res.json(res.data);
+      res.send(res.data);
     }
   });
 }
@@ -43,12 +43,11 @@ app.use(compress())
   .use(bodyParser.json({ type: 'application/vnd.api+json' }))
   .use(bodyParser.urlencoded({ extended: true }))
   .configure(hooks())
-  .configure(rest())
-  //.configure(rest(restFormatter))
+  //.configure(rest())
+  .configure(rest(restFormatter))
   .configure(socketio())
-  .configure(middleware)
   .configure(models)
-  .configure(services);
-  //.configure(middleware);
+  .configure(services)
+  .configure(middleware);
 
 module.exports = app;

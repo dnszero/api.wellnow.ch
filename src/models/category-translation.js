@@ -14,6 +14,12 @@ module.exports = function() {
     name : {
       type: Sequelize.STRING,
     },
+    male : {
+      type: Sequelize.STRING,
+    },
+    female : {
+      type: Sequelize.STRING,
+    },
     slug : {
       type: Sequelize.STRING,
     },

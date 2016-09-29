@@ -51,12 +51,10 @@ exports.jsonapiSerialize = function (opts) {
     } else {
       hook.result.dataValues = dataSerializer.serialize(hook.result.dataValues);
     }*/
-    console.log('result');
-    console.log(hook.result);
+    //console.log('result');
+    //console.log(hook.result);
 
     if (hook.result && hook.result.data) {
-      //console.log(attributes);
-      //console.log(hook.result.data);
       hook.result = dataSerializer.serialize(hook.result.data);
     } else if (hook.result && hook.result.dataValues) {
       console.log(2);
@@ -66,12 +64,5 @@ exports.jsonapiSerialize = function (opts) {
       console.log(3);
       hook.result = dataSerializer.serialize(hook.result);
     }
-
-    console.log('after serialization');
-    hook.result = hook.result.toJSON();
-    console.log(hook.result);
-
-
-    //console.log(serializedData);
   };
 };
