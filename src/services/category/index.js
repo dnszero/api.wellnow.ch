@@ -57,11 +57,10 @@ module.exports = function(){
       });
     },
     create(data, params) {
-      console.log(data);
       const _data = data;
       return models.categories.create({rank: _data.rank}).then(function(category) {
-        models.categoriestranslations.create({name: _data.name, slug: _data.slug, categoryId: category.id, languageId: _data.languageId});
-      });
+          return models.categoriestranslations.create({name: _data.name, slug: _data.slug, categoryId: category.id, languageId: _data.languageId});
+        });
     },
     get(id, params) {
       return models.categories.findById(id, {

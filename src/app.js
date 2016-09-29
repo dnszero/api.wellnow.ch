@@ -22,7 +22,9 @@ app.configure(configuration(path.join(__dirname, '..')));
 function restFormatter(req, res) {
   res.format({
     'application/vnd.api+json': function() {
-      res.send(res.data);
+      console.log('res.data');
+      console.log(res.data);
+      res.json(res.data);
     }
   });
 }
@@ -41,7 +43,8 @@ app.use(compress())
   .use(bodyParser.json({ type: 'application/vnd.api+json' }))
   .use(bodyParser.urlencoded({ extended: true }))
   .configure(hooks())
-  .configure(rest(restFormatter))
+  .configure(rest())
+  //.configure(rest(restFormatter))
   .configure(socketio())
   .configure(middleware)
   .configure(models)

@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const urlSlug = require('url-slug');
 
 module.exports = function() {
   const app = this;
@@ -34,7 +35,14 @@ module.exports = function() {
       allowNull: false
     }
   }, {
-    freezeTableName: true
+    freezeTableName: true,
+    hooks: {
+      beforeCreate: function(translation, options) {
+        if (!translation.slug || translation.slug === '') {
+          translation.slug = urlSlug(translation.name);
+        }
+      }
+    }
   });
 
   return categoryTranslation;

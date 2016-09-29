@@ -10,14 +10,6 @@ module.exports = function() {
       primaryKey: true,
       autoIncrement: true
     },
-    /*name : {
-      type: Sequelize.STRING,
-      i18n: true
-    },
-    slug : {
-      type: Sequelize.STRING,
-      i18n: true
-    },*/
     rank: {
       type: Sequelize.INTEGER,
       defaultValue: 0,
@@ -28,6 +20,5 @@ module.exports = function() {
   }, {
     freezeTableName: true
   });
-
   return category;
 };
