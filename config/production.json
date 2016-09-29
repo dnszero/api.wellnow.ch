@@ -1,7 +1,7 @@
 {
-  "host": "Wellnow API-app.feathersjs.com",
+  "host": "api-wellnow-ch.herokuapp.com",
   "port": 80,
-  "postgres": "DATABASE_URL",
+  "postgres": "postgres://wcjdulbumlykdb:cwztakXCWa5sPVia2RIrOQRTqS@ec2-23-21-193-140.compute-1.amazonaws.com:5432/dfor6078a99046",
   "public": "../public/",
   "auth": {
     "idField": "id",
