@@ -5,6 +5,6 @@ const app = require('../../../src/app');
 
 describe('language service', function() {
   it('registered the languages service', () => {
-    assert.ok(app.service('languages'));
+    assert.ok(app.service('/api/v1/languages'));
   });
 });

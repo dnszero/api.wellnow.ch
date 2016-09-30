@@ -12,7 +12,7 @@ module.exports = function() {
   // just like Express the order matters, so error
   // handling middleware should go last.
   const app = this;
-  //app.use(notFound());
+  app.use(notFound());
   app.use(logger(app));
   app.use(handler());
   //app.use(i18n());
