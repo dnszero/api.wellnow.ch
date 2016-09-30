@@ -1,0 +1,37 @@
+{
+  "host": "localhost",
+  "port": 3030,
+  "db_url": "postgres:@localhost:5432/wellnow_test",
+  "db_dialect": "postgres",
+  "postgres": "postgres://postgres:@localhost:5432/wellnow_test",
+  "public": "../public/",
+  "allowed_origins": ["http://localhost:4200"],
+  "auth": {
+    "idField": "id",
+    "token": {
+      "secret": "gsK9QQIdGwj2OQb2NfDO2A1LeCrtg2FUH5OXAHeM5ksoNPQ0hZX/MRC9vM9kfrqqXp8ZaXHnL9ZrjFfP59tG9A=="
+    },
+    "local": {},
+    "facebook": {
+      "clientID": "your facebook client id",
+      "clientSecret": "your facebook client secret",
+      "permissions": {
+        "scope": ["public_profile","email"]
+      }
+    },
+    "google": {
+      "clientID": "your google client id",
+      "clientSecret": "your google client secret",
+      "permissions": {
+        "scope": ["profile"]
+      }
+    },
+    "linkedin": {
+      "clientID": "your linkedin client id",
+      "clientSecret": "your linkedin client secret",
+      "permissions": {
+        "scope": ["r_emailaddress","r_basicprofile"]
+      }
+    }
+  }
+}
