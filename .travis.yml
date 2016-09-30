@@ -11,3 +11,5 @@ deploy:
     repo: lionelrudaz/api.wellnow.ch
 services:
   - postgresql
+before_script:
+  - psql -c 'create database wellnow_test;' -U postgres
