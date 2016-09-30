@@ -9,3 +9,5 @@ deploy:
   app: api-wellnow-ch
   on:
     repo: lionelrudaz/api.wellnow.ch
+services:
+  - postgresql
