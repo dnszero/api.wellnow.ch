@@ -10,22 +10,22 @@ module.exports = function(){
   //Function to include translations in main attributes and move dates at the end of the response
   function cleanCategory(category) {
     for (const property in category.dataValues.categoriestranslations[0].dataValues) {
-        if (property !== 'categoryId' && category.dataValues.categoriestranslations[0].dataValues.hasOwnProperty(property)) {
+        if ((property !== 'id' && property !== 'categoryId') && category.dataValues.categoriestranslations[0].dataValues.hasOwnProperty(property)) {
             // do stuff
             category.dataValues[property] = category.dataValues.categoriestranslations[0].dataValues[property];
         }
     }
 
     //Delete the translation from the response
-    delete category.dataValues.categoriestranslations;
+    //delete category.dataValues.categoriestranslations;
 
     //Move the dates at the end of the Object
-    const createdAt = category.dataValues.createdAt;
+    /*const createdAt = category.dataValues.createdAt;
     const updatedAt = category.dataValues.updatedAt;
     delete category.dataValues.createdAt;
     delete category.dataValues.updatedAt;
     category.dataValues.createdAt = createdAt;
-    category.dataValues.updatedAt = updatedAt;
+    category.dataValues.updatedAt = updatedAt;*/
   }
 
   app.use('/api/v1/categories', {

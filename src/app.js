@@ -22,8 +22,6 @@ app.configure(configuration(path.join(__dirname, '..')));
 function restFormatter(req, res) {
   res.format({
     'application/vnd.api+json': function() {
-      console.log('res.data');
-      console.log(res.data);
       res.send(res.data);
     }
   });

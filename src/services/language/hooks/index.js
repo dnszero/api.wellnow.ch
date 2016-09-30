@@ -15,7 +15,7 @@ exports.before = {
 };
 
 exports.after = {
-  all: [globalHooks.jsonapiSerialize()],
+  all: [globalHooks.jsonapiSerialize('languages', {attributes: ['defaultLanguage', 'name', 'fallback']})],
   find: [],
   get: [],
   create: [],

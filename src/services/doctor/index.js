@@ -8,17 +8,28 @@ module.exports = function(){
   const app = this;
   const models = app.get('models');
 
-  const options = {
-    //Model: doctor(app.get('sequelize')),
-    Model: models.doctors,
-    paginate: {
-      default: 5,
-      max: 25
-    }
-  };
-
   // Initialize our service with any options it requires
-  app.use('/api/v1/doctors', service(options));
+  app.use('/api/v1/doctors', {
+    find(params) {
+
+      if (params.query.categoryId) {
+        return models.doctors.findAll({
+          include: [
+             {
+               model: models.categories,
+               where: { id: params.query.categoryId }
+             }
+          ]
+        });
+      } else {
+        return models.doctors.findAll({
+          include: [
+             { model: models.categories }
+          ]
+        });
+      }
+    },
+  });
 
   // Get our initialize service to that we can bind hooks
   const doctorService = app.service('/api/v1/doctors');

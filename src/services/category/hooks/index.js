@@ -17,7 +17,7 @@ exports.before = {
 };
 
 exports.after = {
-  all: [globalHooks.jsonapiSerialize({modelName: 'categories', attributes: ['name', 'male', 'female', 'slug', 'rank', 'createdAt', 'updatedAt']})],
+  all: [globalHooks.jsonapiSerialize('categories', {attributes: ['name', 'male', 'female', 'slug', 'rank', 'createdAt', 'updatedAt']})],
   //all: [],
   find: [],
   get: [],

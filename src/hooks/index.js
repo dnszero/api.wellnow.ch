@@ -14,45 +14,10 @@ exports.myHook = function(options) {
   };
 };
 
-exports.jsonapiSerialize = function (opts) {
+exports.jsonapiSerialize = function (modelName, opts) {
   return function(hook) {
-    //console.log(hook.result.data[25].$options.include);
 
-    let modelName, attributes;
-
-    //Define attributes
-    if (opts && opts.attributes) {
-      attributes = opts.attributes;
-    } else {
-      if (hook.result.data) {
-        attributes = hook.result.data[0].$options.attributes;
-      } else {
-        attributes = hook.result.$options.attributes;
-      }
-    }
-
-    //console.log(hook.result.data);
-    if (opts && opts.modelName) {
-      modelName = opts.modelName;
-    } else if (hook.result.data) {
-      modelName = hook.result.data[0].$modelOptions.name.plural;
-    } else if (hook.result.$modelOptions) {
-      modelName = hook.result.$modelOptions.name.plural;
-    } else {
-      modelName = hook.result[0].$modelOptions.name.plural;
-    }
-
-    const dataSerializer = new JSONAPISerializer(modelName, {
-      attributes: attributes
-    });
-
-    /*if (hook.result.data) {
-      hook.result = dataSerializer.serialize(hook.result.data);
-    } else {
-      hook.result.dataValues = dataSerializer.serialize(hook.result.dataValues);
-    }*/
-    //console.log('result');
-    //console.log(hook.result);
+    const dataSerializer = new JSONAPISerializer(modelName, opts);
 
     if (hook.result && hook.result.data) {
       hook.result = dataSerializer.serialize(hook.result.data);
@@ -62,6 +27,7 @@ exports.jsonapiSerialize = function (opts) {
       //hook.result.dataValues = dataSerializer.serialize(hook.result.dataValues);
     } else if (hook.result) {
       console.log(3);
+      console.log(hook.result);
       hook.result = dataSerializer.serialize(hook.result);
     }
   };
