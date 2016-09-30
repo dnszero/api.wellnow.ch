@@ -42,6 +42,9 @@ module.exports = function() {
   models.categories.hasMany(models.categoriestranslations);
   models.languages.belongsToMany(models.categories, {through: models.categoriestranslations});
 
+  models.categories.belongsToMany(models.doctors, {through: 'doctorscategories'});
+  models.doctors.belongsToMany(models.categories, {through: 'doctorscategories'});
+
   /*Object.keys(sequelize.models).forEach(function(modelName) {
     if ("associate" in sequelize.models[modelName]) {
       sequelize.models[modelName].associate();
