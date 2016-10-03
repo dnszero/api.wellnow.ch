@@ -1,8 +1,62 @@
+'use strict';
+
 const Sequelize = require('sequelize');
 
 module.exports = function() {
   const app = this;
   const sequelize = app.get('sequelize');
+
+  const defaultOpenings = [
+  {
+    dayOfWeek: 1,
+    openingFrom: '08:00',
+    openingTo: '12:00'
+  },
+  {
+    dayOfWeek: 1,
+    openingFrom: '13:00',
+    openingTo: '17:00'
+  },
+  {
+    dayOfWeek: 2,
+    openingFrom: '08:00',
+    openingTo: '12:00'
+  },
+  {
+    dayOfWeek: 2,
+    openingFrom: '13:00',
+    openingTo: '17:00'
+  },
+  {
+    dayOfWeek: 3,
+    openingFrom: '08:00',
+    openingTo: '12:00'
+  },
+  {
+    dayOfWeek: 3,
+    openingFrom: '13:00',
+    openingTo: '17:00'
+  },
+  {
+    dayOfWeek: 4,
+    openingFrom: '08:00',
+    openingTo: '12:00'
+  },
+  {
+    dayOfWeek: 4,
+    openingFrom: '13:00',
+    openingTo: '17:00'
+  },
+  {
+    dayOfWeek: 5,
+    openingFrom: '08:00',
+    openingTo: '12:00'
+  },
+  {
+    dayOfWeek: 5,
+    openingFrom: '13:00',
+    openingTo: '17:00'
+  }];
 
   const doctor = sequelize.define('doctors', {
     firstname: {
@@ -55,7 +109,17 @@ module.exports = function() {
       defaultValue: 'Bern'
     }
   }, {
-    freezeTableName: true
+    freezeTableName: true,
+    hooks: {
+      afterCreate: function(doctor, options) {
+        //Create default openings for the doctor
+        for (let i in defaultOpenings) {
+          defaultOpenings[i].doctorId = doctor.id;
+        }
+        
+        sequelize.models.openings.bulkCreate(defaultOpenings);
+      }
+    }
   });
 
   return doctor;

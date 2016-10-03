@@ -18,17 +18,46 @@ module.exports = function(){
              {
                model: models.categories,
                where: { id: params.query.categoryId }
-             }
+             },
+             { model: models.openings }
           ]
         });
       } else {
         return models.doctors.findAll({
           include: [
-             { model: models.categories }
+             { model: models.categories },
+             { model: models.openings }
           ]
         });
       }
     },
+    create(data, params) {
+      return models.doctors.create({
+        firstname: data.firstname,
+        lastname: data.lastname,
+        address: data.address,
+        address2: data.address2,
+        zipcode: data.zipcode,
+        locality: data.locality,
+        email: data.email,
+        phone: data.phone,
+        fax: data.fax,
+        mobile: data.mobile,
+        avatar: data.avatar,
+        background: data.background,
+        latitude: data.latitude,
+        longitude: data.longitude,
+        timezone: data.timezone
+      });
+    },
+    get(id, params) {
+      return models.doctors.findById(id, {
+        include: [
+           { model: models.categories },
+           { model: models.openings },
+        ]
+      });
+    }
   });
 
   // Get our initialize service to that we can bind hooks

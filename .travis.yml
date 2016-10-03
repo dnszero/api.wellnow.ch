@@ -6,6 +6,7 @@ deploy:
   provider: heroku
   api_key:
     secure: y9FaSuFctpK/mmRSh3xiXCFbyhlmK1/eOJ2kf7B47v+EpOoZfo1aMBaNd3jg9xP7g7JmBzTu8fuAQeAFyaNQ4roh3HWPkJUNjFYagFFguZ3RBo3R4YUL/IpzHm0jP22K0kcNHqM20TusCm4Oi8Lf0WBeSFUUDip8AP4w5fExpIyNAXVlMV+TSm6FzjkUt4C+/R/SNHTC4HScWoM9CqYBLzj2QHZVr3bugk3KincpBL2HDDP+TZ/RSXaDztNTTqlx8zDG/BGg5WhToogJC/IXDjn+p9DyM4kKYNUxs8LeppL49ewxaP4WTgNQRRvYMNJw1jiZb7P5vRKSRyYiUr4UDIkop8EKGH8vabmRDRUdyITuy607gWDmSoxcGXeymCkEThZmMf8UtnWO5AQD4OPQW9pj0kbE//92ad2O0JxsbbaPgA59gxzftZhAOKV9wRyWK2twctN5waRq5t+9oE+xM7XifU20yGTPFRVeXiapQqM1y6jTYVyb7d8TsTRFZZileOGXaTMTRUoO+kYMLxedjJt1NiX5mfXZlI47kQs5lbZMdDX3qpiOvNB7AWQf98oQUNINPE3JU+DqU1KkD9S2jEaRVXjz2+8TMeaRtQAv3gq5vEOFADuhivlPdsd1FdbSSgzW1h2KXV7RqhzIlGUE+EupGByjJ4pWC9lPuRSystc=
+  run: "sequelize db:migrate"
   app: api-wellnow-ch
   on:
     repo: lionelrudaz/api.wellnow.ch
