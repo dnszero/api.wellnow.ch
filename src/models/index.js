@@ -2,6 +2,8 @@ const doctor = require('./doctor');
 const user = require('./user');
 const category = require('./category');
 const categoryTranslation = require('./category-translation');
+const procedure = require('./procedure');
+const procedureTranslation = require('./procedure-translation');
 const language = require('./language');
 const opening = require('./opening');
 const Sequelize = require('sequelize');
@@ -32,6 +34,8 @@ module.exports = function() {
   app.configure(doctor);
   app.configure(category);
   app.configure(categoryTranslation);
+  app.configure(procedure);
+  app.configure(procedureTranslation);
   app.configure(opening);
 
   const models = sequelize.models;
@@ -44,19 +48,17 @@ module.exports = function() {
   models.categories.hasMany(models.categoriestranslations);
   models.languages.belongsToMany(models.categories, {through: models.categoriestranslations});
 
+  models.procedures.belongsTo(models.categories);
+  models.categories.hasMany(models.procedures);
+  models.procedures.belongsToMany(models.languages, {through: models.procedurestranslations});
+  models.procedures.hasMany(models.procedurestranslations);
+  models.languages.belongsToMany(models.procedures, {through: models.procedurestranslations});
+
   models.categories.belongsToMany(models.doctors, {through: 'doctorscategories'});
   models.doctors.belongsToMany(models.categories, {through: 'doctorscategories'});
 
   models.doctors.hasMany(models.openings);
   models.openings.belongsTo(models.doctors);
-
-  /*Object.keys(sequelize.models).forEach(function(modelName) {
-    if ("associate" in sequelize.models[modelName]) {
-      sequelize.models[modelName].associate();
-    }
-  });*/
-
-  //console.log(sequelize);
 
   sequelize.sync();
 };

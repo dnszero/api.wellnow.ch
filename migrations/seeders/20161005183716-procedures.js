@@ -14,64 +14,46 @@ module.exports = {
     */
     const now = new Date(Date.now());
     const nowString = now.getUTCFullYear() + '-' + now.getUTCMonth() + '-' + now.getUTCDate() + ' ' + now.getUTCHours() + ':' + now.getUTCMinutes();
-    return queryInterface.bulkInsert('categoriestranslations', [
+    return queryInterface.bulkInsert('procedures', [
       {
-        name: 'General medicine',
-        male: 'General doctor',
-        female: 'General doctor',
-        slug: 'general-doctor',
+        id: 1,
         categoryId: 1,
-        languageId: 'en',
+        rank: 0,
         createdAt: nowString,
         updatedAt: nowString
       },
       {
-        name: 'Médecine générale',
-        male: 'Médecin généraliste',
-        female: 'Médecin généraliste',
-        slug: 'medecin-generaliste',
+        id: 2,
         categoryId: 1,
-        languageId: 'fr',
+        rank: 0,
         createdAt: nowString,
         updatedAt: nowString
       },
       {
-        name: 'Dentist',
-        male: 'Dentist',
-        female: 'Dentist',
-        slug: 'dentist',
+        id: 3,
         categoryId: 2,
-        languageId: 'en',
+        rank: 0,
         createdAt: nowString,
         updatedAt: nowString
       },
       {
-        name: 'Dentiste',
-        male: 'Dentiste',
-        female: 'Dentiste',
-        slug: 'dentist',
+        id: 4,
         categoryId: 2,
-        languageId: 'fr',
+        rank: 0,
         createdAt: nowString,
         updatedAt: nowString
       },
       {
-        name: 'Physiotherapy',
-        male: 'Physiotherapist',
-        female: 'Physiotherapist',
-        slug: 'physiotherapy',
+        id: 5,
         categoryId: 3,
-        languageId: 'en',
+        rank: 0,
         createdAt: nowString,
         updatedAt: nowString
       },
       {
-        name: 'Physiothérapeute',
-        male: 'Physiothérapiste',
-        female: 'Physiothérapiste',
-        slug: 'medecin-generaliste',
+        id: 6,
         categoryId: 3,
-        languageId: 'fr',
+        rank: 0,
         createdAt: nowString,
         updatedAt: nowString
       },
@@ -86,6 +68,6 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('Person', null, {});
     */
-    return queryInterface.bulkDelete('categoriestranslations', null, {});
+    return queryInterface.bulkDelete('procedures', null, {});
   }
 };
