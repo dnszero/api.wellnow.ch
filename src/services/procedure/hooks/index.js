@@ -9,20 +9,13 @@ exports.before = {
   find: [],
   get: [],
   create: [],
-  //create: [translate()],
   update: [],
   patch: [],
   remove: []
 };
 
 exports.after = {
-  all: [globalHooks.jsonapiSerialize('categories', {attributes: ['name', 'male', 'female', 'slug', 'rank', 'createdAt', 'updatedAt', 'procedures'],
-    procedures: {
-      ref: 'id',
-      included: false
-    }
-  })],
-  //all: [],
+  all: [globalHooks.jsonapiSerialize('procedures', {attributes: ['name', 'slug', 'rank', 'createdAt', 'updatedAt']})],
   find: [],
   get: [],
   create: [],

@@ -19,6 +19,8 @@ exports.jsonapiSerialize = function (modelName, opts) {
 
     const dataSerializer = new JSONAPISerializer(modelName, opts);
 
+    console.log(hook.result);
+
     if (hook.result && hook.result.data) {
       hook.result = dataSerializer.serialize(hook.result.data);
     } else if (hook.result && hook.result.dataValues) {

@@ -24,7 +24,7 @@ module.exports = {
       {
         name: 'Cold',
         slug: 'cold',
-        procedureId: 1,
+        procedureId: 2,
         languageId: 'en',
         createdAt: nowString,
         updatedAt: nowString
@@ -32,7 +32,7 @@ module.exports = {
       {
         name: 'Refroidissement',
         slug: 'refroissement',
-        procedureId: 1,
+        procedureId: 2,
         languageId: 'fr',
         createdAt: nowString,
         updatedAt: nowString
@@ -40,7 +40,7 @@ module.exports = {
       {
         name: 'Yearly control',
         slug: 'yearly-control',
-        procedureId: 2,
+        procedureId: 3,
         languageId: 'en',
         createdAt: nowString,
         updatedAt: nowString
@@ -48,7 +48,7 @@ module.exports = {
       {
         name: 'Contrôle annuel',
         slug: 'controle-annuel',
-        procedureId: 2,
+        procedureId: 3,
         languageId: 'fr',
         createdAt: nowString,
         updatedAt: nowString
@@ -56,7 +56,7 @@ module.exports = {
       {
         name: 'Dental carie',
         slug: 'dental-carie',
-        procedureId: 2,
+        procedureId: 4,
         languageId: 'en',
         createdAt: nowString,
         updatedAt: nowString
@@ -64,7 +64,7 @@ module.exports = {
       {
         name: 'Carie',
         slug: 'carie',
-        procedureId: 2,
+        procedureId: 4,
         languageId: 'fr',
         createdAt: nowString,
         updatedAt: nowString
@@ -72,7 +72,7 @@ module.exports = {
       {
         name: 'Backaches',
         slug: 'backaches',
-        procedureId: 3,
+        procedureId: 5,
         languageId: 'en',
         createdAt: nowString,
         updatedAt: nowString
@@ -80,7 +80,7 @@ module.exports = {
       {
         name: 'Maux de dos',
         slug: 'maux-de-dos',
-        procedureId: 3,
+        procedureId: 5,
         languageId: 'fr',
         createdAt: nowString,
         updatedAt: nowString
@@ -88,7 +88,7 @@ module.exports = {
       {
         name: 'Thigh pains',
         slug: 'thigh-pains',
-        procedureId: 3,
+        procedureId: 6,
         languageId: 'en',
         createdAt: nowString,
         updatedAt: nowString
@@ -96,7 +96,7 @@ module.exports = {
       {
         name: 'Douleurs à la cuisse',
         slug: 'Douleurs à la cuisse',
-        procedureId: 3,
+        procedureId: 6,
         languageId: 'fr',
         createdAt: nowString,
         updatedAt: nowString

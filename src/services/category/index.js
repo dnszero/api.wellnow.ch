@@ -15,17 +15,6 @@ module.exports = function(){
             category.dataValues[property] = category.dataValues.categoriestranslations[0].dataValues[property];
         }
     }
-
-    //Delete the translation from the response
-    //delete category.dataValues.categoriestranslations;
-
-    //Move the dates at the end of the Object
-    /*const createdAt = category.dataValues.createdAt;
-    const updatedAt = category.dataValues.updatedAt;
-    delete category.dataValues.createdAt;
-    delete category.dataValues.updatedAt;
-    category.dataValues.createdAt = createdAt;
-    category.dataValues.updatedAt = updatedAt;*/
   }
 
   app.use('/api/v1/categories', {
@@ -37,7 +26,8 @@ module.exports = function(){
 
       return models.categories.findAll({
         include: [
-           { model: models.categoriestranslations, where: { languageId: languageId }}
+           { model: models.categoriestranslations, where: { languageId: languageId }},
+           { model: models.procedures },
         ]
       }).then(function(categories) {
 

@@ -1,4 +1,5 @@
 'use strict';
+const procedure = require('./procedure');
 const language = require('./language');
 const category = require('./category');
 const doctor = require('./doctor');
@@ -19,4 +20,5 @@ module.exports = function() {
   app.configure(doctor);
   app.configure(category);
   app.configure(language);
+  app.configure(procedure);
 };
