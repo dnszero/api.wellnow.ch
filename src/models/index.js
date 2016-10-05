@@ -6,6 +6,7 @@ const procedure = require('./procedure');
 const procedureTranslation = require('./procedure-translation');
 const language = require('./language');
 const opening = require('./opening');
+const event = require('./event');
 const Sequelize = require('sequelize');
 const SequelizeI18N = require('sequelize-i18n');
 
@@ -37,6 +38,7 @@ module.exports = function() {
   app.configure(procedure);
   app.configure(procedureTranslation);
   app.configure(opening);
+  app.configure(event);
 
   const models = sequelize.models;
 
@@ -59,6 +61,9 @@ module.exports = function() {
 
   models.doctors.hasMany(models.openings);
   models.openings.belongsTo(models.doctors);
+
+  models.doctors.hasMany(models.events);
+  models.events.belongsTo(models.doctors);
 
   sequelize.sync();
 };

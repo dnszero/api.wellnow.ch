@@ -1,4 +1,5 @@
 'use strict';
+const event = require('./event');
 const procedure = require('./procedure');
 const language = require('./language');
 const category = require('./category');
@@ -21,4 +22,5 @@ module.exports = function() {
   app.configure(category);
   app.configure(language);
   app.configure(procedure);
+  app.configure(event);
 };
