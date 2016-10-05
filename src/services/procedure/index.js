@@ -60,11 +60,7 @@ module.exports = function(){
         ]
       }).then(function(procedure) {
           // Add translations to attribute
-          console.log('Before');
-          console.log(procedure);
           cleanProcedure(procedure);
-          console.log('After');
-          console.log(procedure);
 
           return procedure.dataValues;
       });
