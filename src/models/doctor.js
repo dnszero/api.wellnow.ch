@@ -59,6 +59,9 @@ module.exports = function() {
   }];
 
   const doctor = sequelize.define('doctors', {
+    title: {
+      type: Sequelize.INTEGER
+    },
     firstname: {
       type: Sequelize.STRING,
       validate: {
@@ -116,7 +119,7 @@ module.exports = function() {
         for (let i in defaultOpenings) {
           defaultOpenings[i].doctorId = doctor.id;
         }
-        
+
         sequelize.models.openings.bulkCreate(defaultOpenings);
       }
     }
