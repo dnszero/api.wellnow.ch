@@ -53,9 +53,14 @@ module.exports = function(){
         });
     },
     get(id, params) {
+      let languageId = 'en';
+      if (params.query.languageId) {
+        languageId = params.query.languageId;
+      }
+
       return models.categories.findById(id, {
         include: [
-           { model: models.categoriestranslations, where: { languageId: params.query.languageId }}
+           { model: models.categoriestranslations, where: { languageId: languageId }}
         ]
       }).then(function(category) {
           // Add translations to attribute
