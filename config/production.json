@@ -3,6 +3,8 @@
   "port": 80,
   "postgres": "postgres://wcjdulbumlykdb:cwztakXCWa5sPVia2RIrOQRTqS@ec2-23-21-193-140.compute-1.amazonaws.com:5432/dfor6078a99046",
   "public": "../public/",
+  "algolia_application_id": "8A7VDUXGAF",
+  "algolia_apikey": "4f5b9e92b2d377caaf95f716515f0165",
   "auth": {
     "idField": "id",
     "token": {

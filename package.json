@@ -22,6 +22,7 @@
     "mocha": "mocha test/ --recursive"
   },
   "dependencies": {
+    "algoliasearch": "^3.18.1",
     "body-parser": "^1.15.2",
     "compression": "^1.6.2",
     "cors": "^2.8.1",

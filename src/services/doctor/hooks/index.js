@@ -1,5 +1,7 @@
 'use strict';
 
+const algolia = require('./algolia');
+
 const globalHooks = require('../../../hooks');
 const hooks = require('feathers-hooks');
 
@@ -27,7 +29,7 @@ exports.after = {
     }})],
   find: [],
   get: [],
-  create: [],
+  create: [algolia()],
   update: [],
   patch: [],
   remove: []
