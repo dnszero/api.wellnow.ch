@@ -1,5 +1,7 @@
 'use strict';
 
+const geocode = require('./geocode');
+
 const algolia = require('./algolia');
 
 const globalHooks = require('../../../hooks');
@@ -10,9 +12,9 @@ exports.before = {
   all: [],
   find: [],
   get: [],
-  create: [],
+  create: [geocode()],
   update: [],
-  patch: [],
+  patch: [geocode()],
   remove: []
 };
 
