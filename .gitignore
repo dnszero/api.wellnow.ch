@@ -29,3 +29,9 @@ node_modules
 
 lib/
 data/
+
+# Visual Studio Code files
+.vscode
+.vscode/launch.json
+
+.vscode/launch.json
