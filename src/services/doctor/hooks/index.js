@@ -12,9 +12,9 @@ exports.before = {
   all: [],
   find: [],
   get: [],
-  create: [geocode()],
+  create: [],
   update: [],
-  patch: [geocode()],
+  patch: [],
   remove: []
 };
 
@@ -31,8 +31,8 @@ exports.after = {
     }})],
   find: [],
   get: [],
-  create: [algolia()],
+  create: [algolia(), geocode()],
   update: [],
-  patch: [],
+  patch: [geocode()],
   remove: []
 };

@@ -1,10 +1,12 @@
 'use strict';
 
 const Sequelize = require('sequelize');
+const NodeGeocoder = require('node-geocoder');
 
 module.exports = function() {
   const app = this;
   const sequelize = app.get('sequelize');
+  const geocoder = NodeGeocoder(app.get('geocode_options'));
 
   const defaultOpenings = [
   {

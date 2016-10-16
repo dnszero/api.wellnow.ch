@@ -9,36 +9,45 @@ const defaults = {};
 const NodeGeocoder = require('node-geocoder');
 
 module.exports = function(options) {
-  options = Object.assign({}, defaults, options);
+	options = Object.assign({}, defaults, options);
 
-  return function(hook) {
-    const geocoder = NodeGeocoder(hook.app.get('geocode_options'));
-    console.log(hook.data);
+  	return function(hook) {
+		if (!hook.data.latitude && !hook.data.longitude) {
+			const _this = this;
+			const geocoder = NodeGeocoder(hook.app.get('geocode_options'));
+			console.log(hook.result);
 
-    
-    if (hook.data.address || hook.data.zipcode || hook.data.locality) {
-    	//Genereate the whole address
-		let fullAddress = '';
-      	if (hook.data.zipcode || hook.data.locality) {
-			fullAddress = hook.data.zipcode + ' ' + hook.data.locality;
-      	}
-		
-		if (hook.data.address2) {
-			fullAddress = hook.data.address2 + ', ' + fullAddress;
+			const id = hook.result.dataValues.data.id;
+			const doctor = hook.result.dataValues.data.attributes;
+
+			
+			if (doctor.address || doctor.zipcode || doctor.locality) {
+				//Genereate the whole address
+				let fullAddress = '';
+				if (doctor.zipcode || doctor.locality) {
+					fullAddress = doctor.zipcode + ' ' + doctor.locality;
+				}
+				
+				if (doctor.address2) {
+					fullAddress = doctor.address2 + ', ' + fullAddress;
+				}
+
+				if (doctor.address) {
+					fullAddress = doctor.address + ', ' + fullAddress;
+				}
+
+				console.log(fullAddress);
+				
+				//Geocode and get the first result
+				return geocoder.geocode(fullAddress).then(function(res) {
+					return _this.patch(id, {latitude: res[0].latitude, longitude: res[0].longitude});
+				})
+				.catch(function(err) {
+					console.log(err);
+				});
+			}
+		} else {
+			return true;
 		}
-
-		if (hook.data.address) {
-			fullAddress = hook.data.address + ', ' + fullAddress;
-		}
-		
-		//Geocode and get the first result
-		return geocoder.geocode(fullAddress).then(function(res) {
-			hook.data.latitude = res[0].latitude;
-			hook.data.longitude = res[0].longitude;
-		})
-		.catch(function(err) {
-			console.log(err);
-		});
-    }
-  };
+	};
 };

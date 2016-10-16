@@ -50,6 +50,16 @@ module.exports = function(){
         timezone: data.timezone
       });
     },
+    patch(id, data, params) {
+      return models.doctors.update((data), {where: { id: id}}).then(function () {
+        return models.doctors.findById(id, {
+          include: [
+            { model: models.categories },
+            { model: models.openings },
+          ]
+        });
+      });
+    },
     get(id, params) {
       return models.doctors.findById(id, {
         include: [
