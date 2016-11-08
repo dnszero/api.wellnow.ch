@@ -15,10 +15,13 @@ module.exports = function(options) {
   return function(hook) {
     console.log(hook.result);
 
-    const algoliaClient = algoliasearch(hook.app.get('algolia_application_id'), hook.app.get('algolia_apikey'));
-    const index = algoliaClient.initIndex('doctors');
+    const algoliaClient = algoliasearch(hook.app.get('algolia_options').app_id, hook.app.get('algolia_options').apikey);
+    const index = algoliaClient.initIndex(hook.app.get('algolia_options').indice);
     const objects = [];
     let cleanDoctor = hook.result.dataValues.data.attributes;
+
+    //Create availabilities for the next 30 days
+    
     cleanDoctor.objectID = hook.result.dataValues.data.id;
     objects.push(cleanDoctor);
 

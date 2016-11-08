@@ -1,4 +1,5 @@
 'use strict';
+const availability = require('./availability');
 const event = require('./event');
 const procedure = require('./procedure');
 const language = require('./language');
@@ -23,4 +24,5 @@ module.exports = function() {
   app.configure(language);
   app.configure(procedure);
   app.configure(event);
+  app.configure(availability);
 };

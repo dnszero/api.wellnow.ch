@@ -6,8 +6,11 @@
   "postgres": "postgres://lionelrudaz:@localhost:5432/wellnow",
   "public": "../public/",
   "allowed_origins": ["http://localhost:4200"],
-  "algolia_application_id": "8A7VDUXGAF",
-  "algolia_apikey": "4f5b9e92b2d377caaf95f716515f0165",
+  "algolia_options": {
+    "app_id": "8A7VDUXGAF",
+    "apikey": "4f5b9e92b2d377caaf95f716515f0165",
+    "indice": "dev_doctors"
+  },
   "geocode_options": {
     "provider": "google",
     "httpAdapter": "https",
