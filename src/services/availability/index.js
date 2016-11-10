@@ -4,6 +4,7 @@ const service = require('feathers-sequelize');
 const hooks = require('./hooks');
 const algoliasearch = require('algoliasearch');
 const moment = require('moment');
+require('twix');
 const Immutable = require('immutable');
 
 module.exports = function(){
@@ -22,6 +23,7 @@ module.exports = function(){
       return models.doctors.findById(data.doctor_id, {
         include: [
           { model: models.categories },
+          { model: models.events },
           { model: models.openings },
         ]
       }).then(function(doctor) {
@@ -29,8 +31,11 @@ module.exports = function(){
         const doctors = [];
         const startDate = moment().add(1, 'days');
         const endDate = moment().add(31, 'days');
+        const batchRange = moment(startDate).twix(endDate);
+        const batchIterRange = batchRange.iterate('days');
         const cleanDoctor = doctor.dataValues;
         const openings = [];
+        const events = [];
 
         //Group openings by date of the day
         cleanDoctor.openings.forEach(function(opening) {
@@ -49,9 +54,21 @@ module.exports = function(){
           cleanDoctor.categories = null;
         }
 
+        //Add events
+        let eventDate;
+        cleanDoctor.events.forEach(function(event) {
+          eventDate = moment(event.dataValues.eventFrom).format('YYYY-MM-DD');
+          if (!events[eventDate]) {
+            events[eventDate] = [];
+          }
+          events[eventDate].push(event.dataValues);
+        });
+
         //Add availabilities and opening for each day
-        let obj, openingStartTime, openingEndTime, availabilityStartTime, availabilityEndTime;
-        for(let date = moment(startDate); date.diff(endDate) < 0; date.add(1, 'days')) {
+        let obj, openingStartTime, openingEndTime, availabilityStartTime, availabilityEndTime, availabilityRange;
+        //for(let date = moment(startDate); date.diff(endDate) < 0; date.add(1, 'days')) {
+        do {
+          const date = batchIterRange.next();
           //If there're openings for the day
           if (openings[date.day()]) {
             obj = cleanDoctor;
@@ -74,10 +91,28 @@ module.exports = function(){
               availabilityEndTime = moment(availabilityStartTime).add(1, 'hours');
 
               do {
-                obj.availabilities.push({
-                  startDate: availabilityStartTime.unix(),
-                  endDate: availabilityEndTime.unix()
-                });
+                //Add a new availability if the doctor is free at that time
+                availabilityRange = moment(availabilityStartTime).twix(availabilityEndTime);
+
+                let isFree = true;
+                if (events[date.format('YYYY-MM-DD')]) {
+                  let i = 0;
+                  const eventsToday = events[date.format('YYYY-MM-DD')];
+                  do {
+                    const eventRange = moment(eventsToday[i].eventFrom).twix(eventsToday[i].eventTo);
+                    if (eventRange.overlaps(availabilityRange)) {
+                      isFree = false;
+                    }
+                    i++;
+                  } while (isFree && i < eventsToday.length)
+                }
+
+                if (isFree) {
+                  obj.availabilities.push({
+                    startDate: availabilityStartTime.unix(),
+                    endDate: availabilityEndTime.unix()
+                  });
+                }
 
                 availabilityStartTime.add(15, 'minutes');
                 availabilityEndTime.add(15, 'minutes');
@@ -87,7 +122,7 @@ module.exports = function(){
 
             doctors.push(Immutable.Map(obj));
           }
-        }
+        } while (batchIterRange.hasNext())
 
         //Add all items to the index
         return index.addObjects(doctors, function(err, content) {

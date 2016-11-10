@@ -10,13 +10,21 @@ module.exports = function(){
   // Initialize our service with any options it requires
   app.use('/api/v1/events', {
     find(params) {
-      return models.events.findAll();
+      return models.events.findAll({
+        include: [
+          { model: models.doctors }
+        ]
+      });
     },
     create(data, params) {
       return models.events.create(data);
     },
     get(id, params) {
-      return models.events.findById(id);
+      return models.events.findById(id, {
+        include: [
+          { model: models.doctors },
+        ]
+      });
     }
   });
 

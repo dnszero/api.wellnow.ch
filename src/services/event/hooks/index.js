@@ -18,7 +18,7 @@ exports.after = {
   all: [globalHooks.jsonapiSerialize('events', {attributes: ['name', 'location', 'allDay','eventFrom','eventTo', 'createdAt', 'updatedAt', 'doctor'],
     doctor: {
       ref: 'id',
-      included: false
+      included: true
     }
   })],
   find: [],
