@@ -104,7 +104,7 @@ module.exports = function(){
                       isFree = false;
                     }
                     i++;
-                  } while (isFree && i < eventsToday.length)
+                  } while (isFree && i < eventsToday.length);
                 }
 
                 if (isFree) {
@@ -122,7 +122,7 @@ module.exports = function(){
 
             doctors.push(Immutable.Map(obj));
           }
-        } while (batchIterRange.hasNext())
+        } while (batchIterRange.hasNext());
 
         //Add all items to the index
         return index.addObjects(doctors, function(err, content) {
