@@ -1,4 +1,5 @@
 'use strict';
+const search = require('./search');
 const availability = require('./availability');
 const event = require('./event');
 const procedure = require('./procedure');
@@ -25,4 +26,5 @@ module.exports = function() {
   app.configure(procedure);
   app.configure(event);
   app.configure(availability);
+  app.configure(search);
 };
