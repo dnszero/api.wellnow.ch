@@ -23,8 +23,11 @@ module.exports = function(){
 
     create(data, params) {
 
+      console.log(data.datefrom);
+      console.log(data.dateto);
+
       return index.search('', {
-        filters: 'categories.id=' + data.categoryId,
+        filters: 'categories.id=' + data.categoryId + ' AND date>=' + data.datefrom + ' AND date<' + data.dateto,
         hitsPerPage: 50
       })
       .then(function searchSuccess(content) {
