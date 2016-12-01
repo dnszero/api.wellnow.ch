@@ -28,7 +28,7 @@ module.exports = function(){
 
       return index.search('', {
         filters: 'categories.id=' + data.categoryId + ' AND date>=' + data.datefrom + ' AND date<' + data.dateto,
-        hitsPerPage: 50
+        hitsPerPage: 20
       })
       .then(function searchSuccess(content) {
         console.log(content);
