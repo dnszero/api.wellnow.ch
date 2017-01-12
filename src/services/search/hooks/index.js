@@ -1,7 +1,4 @@
 'use strict';
-
-const changeHitsIntoDoctors = require('./changeHitsIntoDoctors');
-
 const validateDate = require('./validateDate');
 
 const globalHooks = require('../../../hooks');
@@ -19,12 +16,20 @@ exports.before = {
 };
 
 exports.after = {
-  all: [changeHitsIntoDoctors(), globalHooks.jsonapiSerialize('search', {attributes: ['nbHits', 'page', 'nbPages','hitsPerPage','processingTimeMS','query','params','phone','hits','doctors'],
-    doctors: {
-      ref: 'id',
-      included: true,
-      attributes: ['firstname', 'lastname', 'email']
-    }})],
+  all: [globalHooks.jsonapiSerialize('search', {
+    pluralizeType: false,
+    attributes: ['nbHits', 'page', 'nbPages','hitsPerPage','processingTimeMS','query','params','hits'],
+      hits: {
+        ref: 'objectID',
+        included: true,
+        attributes: ['date', '_rankingInfo', 'doctor'],
+        doctor: {
+          ref: 'id',
+          included: true,
+          attributes: ['firstname', 'lastname', 'address','address2','zipcode','locality','email','phone','fax','mobile','avatar','background','latitude','longitude','timezone', 'createdAt', 'updatedAt', 'categories', 'openings']
+        }
+      }
+  })],
   find: [],
   get: [],
   create: [],

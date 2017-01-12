@@ -29,7 +29,7 @@ module.exports = function(){
       return index.search('', {
         aroundLatLng: data.lat + ', ' + data.lng,
         getRankingInfo: true,
-        filters: 'categories.id=' + data.categoryId + ' AND date>=' + data.datefrom + ' AND date<' + data.dateto,
+        filters: 'doctor.categories.id=' + data.categoryId + ' AND date>=' + data.datefrom + ' AND date<' + data.dateto,
         hitsPerPage: 20
       })
       .then(function searchSuccess(content) {

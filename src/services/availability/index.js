@@ -33,12 +33,15 @@ module.exports = function(){
         const endDate = moment().add(31, 'days');
         const batchRange = moment(startDate).twix(endDate);
         const batchIterRange = batchRange.iterate('days');
-        const cleanDoctor = doctor.dataValues;
+        //const cleanDoctor = doctor.dataValues;
+        const cleanDoctor = {};
         const openings = [];
         const events = [];
 
+        cleanDoctor.doctor = doctor.dataValues;
+
         //Group openings by date of the day
-        cleanDoctor.openings.forEach(function(opening) {
+        cleanDoctor.doctor.openings.forEach(function(opening) {
           if (!openings[opening.dataValues.dayOfWeek]) {
             openings[opening.dataValues.dayOfWeek] = [];
           }
@@ -47,8 +50,8 @@ module.exports = function(){
 
         //Clean up Geoloc
         cleanDoctor._geoloc = {
-          lat: cleanDoctor.latitude,
-          lng: cleanDoctor.longitude
+          lat: cleanDoctor.doctor.latitude,
+          lng: cleanDoctor.doctor.longitude
         };
 
         //Add categories
@@ -62,7 +65,7 @@ module.exports = function(){
 
         //Add events
         let eventDate;
-        cleanDoctor.events.forEach(function(event) {
+        cleanDoctor.doctor.events.forEach(function(event) {
           eventDate = moment(event.dataValues.eventFrom).format('YYYY-MM-DD');
           if (!events[eventDate]) {
             events[eventDate] = [];
@@ -80,7 +83,7 @@ module.exports = function(){
             obj = cleanDoctor;
 
             //Define the object ID based on doctor's id and the date of the day
-            obj.objectID = obj.id + '_' + moment(date).format('YYYYMMDD');
+            obj.objectID = obj.doctor.id + '_' + moment(date).format('YYYYMMDD');
 
             //Add the timestamp for the day
             obj.date = moment(date).unix();
