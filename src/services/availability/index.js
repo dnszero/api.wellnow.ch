@@ -45,6 +45,12 @@ module.exports = function(){
           openings[opening.dataValues.dayOfWeek].push(opening.dataValues);
         });
 
+        //Clean up Geoloc
+        cleanDoctor._geoloc = {
+          lat: cleanDoctor.latitude,
+          lng: cleanDoctor.longitude
+        };
+
         //Add categories
         if (cleanDoctor.categories) {
           cleanDoctor.categories = cleanDoctor.categories.map(function(cat) {

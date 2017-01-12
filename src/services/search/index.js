@@ -27,6 +27,8 @@ module.exports = function(){
       console.log(data.dateto);
 
       return index.search('', {
+        aroundLatLng: data.lat + ', ' + data.lng,
+        getRankingInfo: true,
         filters: 'categories.id=' + data.categoryId + ' AND date>=' + data.datefrom + ' AND date<' + data.dateto,
         hitsPerPage: 20
       })

@@ -18,10 +18,10 @@ module.exports = function(options) {
     const algoliaClient = algoliasearch(hook.app.get('algolia_options').app_id, hook.app.get('algolia_options').apikey);
     const index = algoliaClient.initIndex(hook.app.get('algolia_options').indice);
     const objects = [];
-    let cleanDoctor = hook.result.dataValues.data.attributes;
+    const cleanDoctor = hook.result.dataValues.data.attributes;
 
-    //Create availabilities for the next 30 days
-    
+    //Geoloc for each doctor
+
     cleanDoctor.objectID = hook.result.dataValues.data.id;
     objects.push(cleanDoctor);
 
