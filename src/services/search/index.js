@@ -2,9 +2,12 @@
 
 const hooks = require('./hooks');
 const algoliasearch = require('algoliasearch');
+const service = require('feathers-sequelize');
+const moment = require('moment');
 
 module.exports = function(){
   const app = this;
+  const models = app.get('models');
   const algoliaClient = algoliasearch(app.get('algolia_options').app_id, app.get('algolia_options').apikey);
   const index = algoliaClient.initIndex(app.get('algolia_options').indice);
 
@@ -23,21 +26,31 @@ module.exports = function(){
 
     create(data, params) {
 
-      console.log(data.datefrom);
-      console.log(data.dateto);
+      //console.log(moment.unix(data.datefrom).format('YYYY-MM-DD'));
+      //console.log(data.dateto);
 
-      return index.search('', {
-        aroundLatLng: data.lat + ', ' + data.lng,
-        getRankingInfo: true,
-        filters: 'doctor.categories.id=' + data.category + ' AND date>=' + data.datefrom + ' AND date<' + data.dateto,
-        hitsPerPage: 20
-      })
-      .then(function searchSuccess(content) {
-        console.log(content);
-        return content;
-      })
-      .catch(function searchFailure(err) {
-        console.error(err);
+      return models.searches.create({
+        location: data.location,
+        lat: data.lat,
+        lng: data.lng,
+        dateFrom: moment.unix(data.datefrom).format('YYYY-MM-DD'),
+        dateTo: moment.unix(data.dateto).format('YYYY-MM-DD'),
+        categoryId: data.category
+      }).then(function(search) {
+        return index.search('', {
+          aroundLatLng: data.lat + ', ' + data.lng,
+          getRankingInfo: true,
+          filters: 'doctor.categories.id=' + data.category + ' AND date>=' + data.datefrom + ' AND date<' + data.dateto,
+          hitsPerPage: 20
+        })
+        .then(function searchSuccess(content) {
+          content.id = search.id;
+          console.log(content);
+          return content;
+        })
+        .catch(function searchFailure(err) {
+          console.error(err);
+        });
       });
     },
 
