@@ -16,6 +16,7 @@ module.exports = function(options) {
     //Check dates parameters and set to tomorrow by default if empty
     if (!hook.data.datefrom) {
         hook.data.datefrom = moment().add(1, 'days').startOf('day').unix();
+        hook.data.dateto = moment().add(2, 'days').startOf('day').unix();
     } else {
       if (!hook.data.dateto) {
         hook.data.dateto = moment(hook.data.datefrom).add(1, 'days').startOf('day').unix();

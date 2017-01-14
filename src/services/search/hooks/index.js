@@ -9,7 +9,13 @@ exports.before = {
   all: [],
   find: [],
   get: [],
-  create: [validateDate()],
+  create: [globalHooks.jsonapiDeserialize({
+    categories: {
+      valueForRelationship: function (relationship) {
+        return parseInt(relationship.id);
+      }
+    }
+  }), validateDate()],
   update: [validateDate()],
   patch: [validateDate()],
   remove: []

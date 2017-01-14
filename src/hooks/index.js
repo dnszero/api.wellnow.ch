@@ -1,6 +1,7 @@
 'use strict';
 
 const JSONAPISerializer = require('jsonapi-serializer').Serializer;
+const JSONAPIDeserializer = require('jsonapi-serializer').Deserializer;
 
 // Add any common hooks you want to share across services in here.
 //
@@ -27,5 +28,16 @@ exports.jsonapiSerialize = function (modelName, opts) {
     } else if (hook.result) {
       hook.result = dataSerializer.serialize(hook.result);
     }
+  };
+};
+
+exports.jsonapiDeserialize = function (opts) {
+  return function(hook) {
+    return new Promise(function(resolve, reject) {
+      return new JSONAPIDeserializer(opts).deserialize(hook.data, function (err, data) {
+        hook.data = data;
+        resolve(hook);
+      });
+    });
   };
 };
