@@ -28,7 +28,7 @@ exports.after = {
       hits: {
         ref: 'objectID',
         included: true,
-        attributes: ['date', '_rankingInfo', 'doctor'],
+        attributes: ['date', 'rankingInfo', 'doctor', 'availabilities'],
         doctor: {
           ref: 'id',
           included: true,

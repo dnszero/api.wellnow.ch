@@ -13,22 +13,27 @@ module.exports = function(options) {
   options = Object.assign({}, defaults, options);
 
   return function(hook) {
+    console.log('Validate date');
+    console.log(hook.data.datefrom);
     //Check dates parameters and set to tomorrow by default if empty
     if (!hook.data.datefrom) {
-        hook.data.datefrom = moment().add(1, 'days').startOf('day').unix();
-        hook.data.dateto = moment().add(2, 'days').startOf('day').unix();
+        hook.data.datefrom = moment().utc().add(1, 'days').startOf('day').unix();
+        hook.data.dateto = moment().utc().add(2, 'days').startOf('day').unix();
     } else {
       if (!hook.data.dateto) {
-        hook.data.dateto = moment(hook.data.datefrom).add(1, 'days').startOf('day').unix();
+        hook.data.dateto = moment(hook.data.datefrom).utc().add(1, 'days').startOf('day').unix();
       } else {
-        hook.data.dateto = moment(hook.data.dateto).add(1, 'days').startOf('day').unix();
+        hook.data.dateto = moment(hook.data.dateto).utc().add(1, 'days').startOf('day').unix();
       }
-      hook.data.datefrom = moment(hook.data.datefrom).unix();
+      hook.data.datefrom = moment(hook.data.datefrom).utc().unix();
     }
 
     if (!hook.data.dateto) {
-        hook.data.dateto = moment().add(1, 'days').startOf('day').unix();
+        hook.data.dateto = moment().utc().add(1, 'days').startOf('day').unix();
     }
+
+    console.log("After validation");
+    console.log(hook.data.datefrom);
 
     hook.validateDate = true;
   };

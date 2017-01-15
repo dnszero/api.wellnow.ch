@@ -29,8 +29,8 @@ module.exports = function(){
       }).then(function(doctor) {
         //Will create an entry in the index for each of the next 30 days
         const doctors = [];
-        const startDate = moment().add(1, 'days');
-        const endDate = moment().add(31, 'days');
+        const startDate = moment().utc().add(1, 'days');
+        const endDate = moment().utc().add(31, 'days');
         const batchRange = moment(startDate).twix(endDate);
         const batchIterRange = batchRange.iterate('days');
         //const cleanDoctor = doctor.dataValues;
@@ -83,10 +83,10 @@ module.exports = function(){
             obj = cleanDoctor;
 
             //Define the object ID based on doctor's id and the date of the day
-            obj.objectID = obj.doctor.id + '_' + moment(date).format('YYYYMMDD');
+            obj.objectID = obj.doctor.id + '_' + moment(date).utc().format('YYYYMMDD');
 
             //Add the timestamp for the day
-            obj.date = moment(date).unix();
+            obj.date = moment(date).utc().unix();
 
             obj.openings = [];
             obj.availabilities = [];

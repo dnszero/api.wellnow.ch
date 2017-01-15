@@ -26,8 +26,10 @@ module.exports = function(){
 
     create(data, params) {
 
-      //console.log(moment.unix(data.datefrom).format('YYYY-MM-DD'));
-      //console.log(data.dateto);
+      console.log(data.datefrom);
+      console.log(data.dateto);
+      console.log(moment.unix(data.datefrom).format('YYYY-MM-DD'));
+      console.log(moment.unix(data.dateto).format('YYYY-MM-DD'));
 
       return models.searches.create({
         location: data.location,
@@ -46,6 +48,11 @@ module.exports = function(){
         .then(function searchSuccess(content) {
           content.id = search.id;
           console.log(content);
+          content.hits = content.hits.map(function(hit) {
+            const rObj = hit;
+            rObj.rankingInfo = rObj._rankingInfo;
+            return rObj;
+          });
           return content;
         })
         .catch(function searchFailure(err) {
