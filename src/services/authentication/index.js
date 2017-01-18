@@ -1,7 +1,6 @@
 'use strict';
 
 const authentication = require('feathers-authentication');
-
 const FacebookStrategy = require('passport-facebook').Strategy;
 const FacebookTokenStrategy = require('passport-facebook-token');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -13,7 +12,14 @@ module.exports = function() {
   const app = this;
 
   let config = app.get('auth');
-  
+
+  //Custom config
+  /*config.localEndpoint = '/api/v1/auth/local';
+  config.userEndpoint = '/api/v1/users';
+  config.tokenEndpoint = '/api/v1/tokens';*/
+  config.successRedirect = false;
+  config.failureRedirect = false;
+
   config.facebook.strategy = FacebookStrategy;
   config.facebook.tokenStrategy = FacebookTokenStrategy;
   config.google.strategy = GoogleStrategy;
@@ -22,5 +28,6 @@ module.exports = function() {
   config.linkedin.tokenStrategy = LinkedinTokenStrategy;
 
   app.set('auth', config);
+  console.log(config);
   app.configure(authentication(config));
 };
