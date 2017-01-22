@@ -23,7 +23,7 @@
     "secret": "This is my dirty little secret: I've got two kids named Sandro and Jonah",
     "jwt": {
       "header": { "typ": "access" },
-      "audience": "https://yourdomain.com",
+      "audience": ["http://localhost:4200"],
       "subject": "anonymous",
       "issuer": "feathers",
       "algorithm": "HS256",
