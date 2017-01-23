@@ -1,5 +1,7 @@
 'use strict';
 
+const hooks = require('./hooks');
+
 const authentication = require('feathers-authentication');
 const FacebookStrategy = require('passport-facebook').Strategy;
 const FacebookTokenStrategy = require('passport-facebook-token');
@@ -19,7 +21,6 @@ module.exports = function() {
   config.tokenEndpoint = '/api/v1/tokens';*/
   config.successRedirect = false;
   config.failureRedirect = false;
-
   config.facebook.strategy = FacebookStrategy;
   config.facebook.tokenStrategy = FacebookTokenStrategy;
   config.google.strategy = GoogleStrategy;

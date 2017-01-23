@@ -21,17 +21,19 @@
     "path": "/api/v1/authentication",
     "idField": "id",
     "secret": "This is my dirty little secret: I've got two kids named Sandro and Jonah",
-    "jwt": {
-      "header": { "typ": "access" },
-      "audience": ["http://localhost:4200"],
-      "subject": "anonymous",
-      "issuer": "feathers",
-      "algorithm": "HS256",
-      "expiresIn": "1d"
-    },
+    "header": "Authorization",
+    "audience": ["http://localhost:4200"],
+    "subject": "anonymous",
+    "issuer": "feathers",
+    "algorithm": "HS256",
+    "expiresIn": "1d",
+    "entity": "users",
+    "service": "/api/v1/users",
     "local": {
       "usernameField": "email",
-      "passwordField": "password"
+      "passwordField": "attributes.password",
+      "entity": "users",
+      "service": "/api/v1/users"
     },
     "facebook": {
       "clientID": "your facebook client id",

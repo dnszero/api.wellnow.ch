@@ -6,7 +6,7 @@ const procedure = require('./procedure');
 const language = require('./language');
 const category = require('./category');
 const doctor = require('./doctor');
-const authentication = require('./authentication');
+//const authentication = require('./authentication');
 const user = require('./user');
 const Sequelize = require('sequelize');
 
@@ -19,7 +19,7 @@ module.exports = function() {
   });
   app.set('sequelize', sequelize);
 
-  app.configure(authentication);
+  //app.configure(authentication);
   app.configure(user);
   app.configure(doctor);
   app.configure(category);

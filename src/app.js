@@ -14,6 +14,9 @@ const socketio = require('feathers-socketio');
 const middleware = require('./middleware');
 const services = require('./services');
 const models = require('./models');
+const local = require('feathers-authentication-local');
+const jwt = require('feathers-authentication-jwt');
+const auth = require('feathers-authentication');
 
 const app = feathers();
 
@@ -26,6 +29,8 @@ function restFormatter(req, res) {
     }
   });
 }
+
+console.log(app.get('auth'));
 
 app.use(compress())
   .options({
@@ -44,8 +49,23 @@ app.use(compress())
   //.configure(rest())
   .configure(rest(restFormatter))
   .configure(socketio())
+  .configure(auth(app.get('auth')))
+  .configure(local())
+  .configure(jwt())
   .configure(models)
   .configure(services)
   .configure(middleware);
+
+  app.service('api/v1/authentication').hooks({
+  before: {
+    create: [
+      // You can chain multiple strategies
+      auth.hooks.authenticate(['jwt', 'local'])
+    ],
+    remove: [
+      auth.hooks.authenticate('jwt')
+    ]
+  }
+});
 
 module.exports = app;
