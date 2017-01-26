@@ -30,8 +30,6 @@ function restFormatter(req, res) {
   });
 }
 
-console.log(app.get('auth'));
-
 app.use(compress())
   .options({
       origin: function(origin, callback){

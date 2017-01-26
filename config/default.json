@@ -31,9 +31,7 @@
     "service": "/api/v1/users",
     "local": {
       "usernameField": "email",
-      "passwordField": "attributes.password",
-      "entity": "users",
-      "service": "/api/v1/users"
+      "passwordField": "password"
     },
     "facebook": {
       "clientID": "your facebook client id",

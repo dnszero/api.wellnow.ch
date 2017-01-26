@@ -3,6 +3,7 @@
 const globalHooks = require('../../../hooks');
 const hooks = require('feathers-hooks');
 const auth = require('feathers-authentication').hooks;
+const authLocal = require('feathers-authentication-local').hooks;
 
 exports.before = {
   all: [],
@@ -20,7 +21,7 @@ exports.before = {
   ],
   create: [
     globalHooks.jsonapiDeserialize(),
-    //auth.hashPassword()
+    authLocal.hashPassword()
   ],
   update: [
     // auth.verifyToken(),
