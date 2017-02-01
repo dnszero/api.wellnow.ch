@@ -13,8 +13,6 @@ module.exports = function(options) {
   options = Object.assign({}, defaults, options);
 
   return function(hook) {
-    console.log('Validate date');
-    console.log(hook.data.datefrom);
     //Check dates parameters and set to tomorrow by default if empty
     if (!hook.data.datefrom) {
         hook.data.datefrom = moment().utc().add(1, 'days').startOf('day').unix();
@@ -31,9 +29,6 @@ module.exports = function(options) {
     if (!hook.data.dateto) {
         hook.data.dateto = moment().utc().add(1, 'days').startOf('day').unix();
     }
-
-    console.log("After validation");
-    console.log(hook.data.datefrom);
 
     hook.validateDate = true;
   };

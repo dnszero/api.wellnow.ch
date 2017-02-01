@@ -17,6 +17,7 @@ const models = require('./models');
 const local = require('feathers-authentication-local');
 const jwt = require('feathers-authentication-jwt');
 const auth = require('feathers-authentication');
+const WellnowVerifier = require('./verifier');
 
 const app = feathers();
 
@@ -48,7 +49,7 @@ app.use(compress())
   .configure(rest(restFormatter))
   .configure(socketio())
   .configure(auth(app.get('auth')))
-  .configure(local())
+  .configure(local({ Verifier: WellnowVerifier }))
   .configure(jwt())
   .configure(models)
   .configure(services)
