@@ -1,4 +1,4 @@
-const { Verifier } = require('feathers-authentication-local');
+const Verifier = require('feathers-authentication-local').Verifier;
 const bcryptjs = require('bcryptjs');
 
 class WellnowVerifier extends Verifier {
