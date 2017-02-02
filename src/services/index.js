@@ -6,7 +6,6 @@ const procedure = require('./procedure');
 const language = require('./language');
 const category = require('./category');
 const doctor = require('./doctor');
-//const authentication = require('./authentication');
 const user = require('./user');
 const Sequelize = require('sequelize');
 

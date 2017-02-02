@@ -14,7 +14,7 @@ exports.before = {
     // auth.restrictToAuthenticated()
   ],
   get: [
-    // auth.verifyToken(),
+    auth.authenticate('jwt'),
     // auth.populateUser(),
     // auth.restrictToAuthenticated(),
     // auth.restrictToOwner({ ownerField: 'id' })
@@ -44,11 +44,11 @@ exports.before = {
 };
 
 exports.after = {
-  all: [hooks.remove('password')],
-  find: [globalHooks.jsonapiSerialize('users', {attributes: ['email', 'password','facebookId', 'googleId','linkedinId','createdAt', 'updatedAt']})],
+  all: [hooks.remove('password'), globalHooks.jsonapiSerialize('users', {attributes: ['email', 'password','facebookId', 'googleId','linkedinId','createdAt', 'updatedAt']})],
+  find: [],
   get: [],
-  create: [globalHooks.jsonapiSerialize('users', {attributes: ['email', 'password','facebookId', 'googleId','linkedinId','createdAt', 'updatedAt']})],
-  update: [globalHooks.jsonapiSerialize('users', {attributes: ['email', 'password','facebookId', 'googleId','linkedinId','createdAt', 'updatedAt']})],
-  patch: [globalHooks.jsonapiSerialize('users', {attributes: ['email', 'password','facebookId', 'googleId','linkedinId','createdAt', 'updatedAt']})],
+  create: [],
+  update: [],
+  patch: [],
   remove: []
 };
