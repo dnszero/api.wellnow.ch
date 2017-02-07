@@ -67,6 +67,8 @@ module.exports = function() {
   models.doctors.hasMany(models.events);
   models.events.belongsTo(models.doctors);
 
+  models.doctors.belongsTo(models.users);
+
   models.searches.belongsTo(models.categories);
   models.categories.hasMany(models.searches);
 

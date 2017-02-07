@@ -34,7 +34,9 @@ exports.jsonapiSerialize = function (modelName, opts) {
 exports.jsonapiDeserialize = function (opts) {
   return function(hook) {
     return new Promise(function(resolve, reject) {
+      console.log(hook.data);
       return new JSONAPIDeserializer(opts).deserialize(hook.data, function (err, data) {
+        console.log(data);
         hook.data = data;
         resolve(hook);
       });

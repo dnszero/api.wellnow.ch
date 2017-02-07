@@ -11,25 +11,33 @@ module.exports = function(){
   // Initialize our service with any options it requires
   app.use('/api/v1/doctors', {
     find(params) {
+      const filter = {
+        where: {},
+        include: [{
+          model: models.openings
+        },
+        {
+          model: models.users
+        }
+        ]
+      };
+
+      if (params.query.userId) {
+        filter.where.userId = params.query.userId;
+      }
 
       if (params.query.categoryId) {
-        return models.doctors.findAll({
-          include: [
-             {
-               model: models.categories,
-               where: { id: params.query.categoryId }
-             },
-             { model: models.openings }
-          ]
+        filter.include.push({
+          model: models.categories,
+          where: { id: params.query.categoryId }
         });
       } else {
-        return models.doctors.findAll({
-          include: [
-             { model: models.categories },
-             { model: models.openings }
-          ]
+        filter.include.push({
+          model: models.categories
         });
       }
+
+      return models.doctors.findAll(filter);
     },
     create(data, params) {
       return models.doctors.create({
@@ -47,7 +55,9 @@ module.exports = function(){
         background: data.background,
         latitude: data.latitude,
         longitude: data.longitude,
-        timezone: data.timezone
+        timezone: data.timezone,
+        title: data.title,
+        userId: data.userId
       });
     },
     patch(id, data, params) {
@@ -55,6 +65,7 @@ module.exports = function(){
         return models.doctors.findById(id, {
           include: [
             { model: models.categories },
+            { model: models.users },
             { model: models.openings },
           ]
         });
@@ -64,6 +75,7 @@ module.exports = function(){
       return models.doctors.findById(id, {
         include: [
            { model: models.categories },
+           { model: models.users },
            { model: models.openings },
         ]
       });

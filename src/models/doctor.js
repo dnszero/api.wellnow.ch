@@ -112,6 +112,14 @@ module.exports = function() {
     timezone: {
       type: Sequelize.STRING,
       defaultValue: 'Bern'
+    },
+    userId: {
+      type: Sequelize.INTEGER,
+      references: {
+        model: 'users',
+        key: 'id'
+      },
+      allowNull: false
     }
   }, {
     freezeTableName: true,
