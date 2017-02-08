@@ -17,13 +17,18 @@ exports.before = {
   create: [globalHooks.jsonapiDeserialize({
     users: {
       valueForRelationship: function (relationship) {
-        console.log(relationship);
         return parseInt(relationship.id);
       }
     }
   }), userToUserId()],
   update: [globalHooks.jsonapiDeserialize()],
-  patch: [globalHooks.jsonapiDeserialize()],
+  patch: [globalHooks.jsonapiDeserialize({
+    categories: {
+      valueForRelationship: function (relationship) {
+        return parseInt(relationship.id);
+      }
+    }
+  })],
   remove: []
 };
 

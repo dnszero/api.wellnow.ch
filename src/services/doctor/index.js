@@ -61,14 +61,33 @@ module.exports = function(){
       });
     },
     patch(id, data, params) {
-      return models.doctors.update((data), {where: { id: id}}).then(function () {
-        return models.doctors.findById(id, {
-          include: [
-            { model: models.categories },
-            { model: models.users },
-            { model: models.openings },
-          ]
-        });
+      return models.doctors.findById(id).then(function(doctor) {
+        //Check if there are categories in the payload
+        if (data.categories && data.categories.length > 0) {
+          console.log('data');
+          console.log(data.categories);
+          return doctor.setCategories(data.categories).then(function() {
+            return models.doctors.update((data), {where: { id: id}}).then(function () {
+              return models.doctors.findById(id, {
+                include: [
+                  { model: models.categories },
+                  { model: models.users },
+                  { model: models.openings },
+                ]
+              });
+            });
+          });
+        } else {
+          return models.doctors.update((data), {where: { id: id}}).then(function (doctor) {
+            return models.doctors.findById(id, {
+              include: [
+                { model: models.categories },
+                { model: models.users },
+                { model: models.openings },
+              ]
+            });
+          });
+        }
       });
     },
     get(id, params) {
