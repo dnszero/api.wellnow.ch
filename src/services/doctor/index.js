@@ -64,8 +64,6 @@ module.exports = function(){
       return models.doctors.findById(id).then(function(doctor) {
         //Check if there are categories in the payload
         if (data.categories && data.categories.length > 0) {
-          console.log('data');
-          console.log(data.categories);
           return doctor.setCategories(data.categories).then(function() {
             return models.doctors.update((data), {where: { id: id}}).then(function () {
               return models.doctors.findById(id, {
@@ -78,7 +76,9 @@ module.exports = function(){
             });
           });
         } else {
+          console.log(data);
           return models.doctors.update((data), {where: { id: id}}).then(function (doctor) {
+            console.log('Update done');
             return models.doctors.findById(id, {
               include: [
                 { model: models.categories },

@@ -25,6 +25,14 @@ module.exports = function() {
     password: {
       type: Sequelize.STRING,
       allowNull: false
+    },
+    language: {
+      type: Sequelize.STRING,
+      references: {
+        model: 'languages',
+        key: 'id'
+      },
+      defaultValue: 'en'
     }
   }, {
     freezeTableName: true

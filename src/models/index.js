@@ -1,4 +1,5 @@
 const doctor = require('./doctor');
+const patient = require('./patient');
 const user = require('./user');
 const category = require('./category');
 const categoryTranslation = require('./category-translation');
@@ -34,6 +35,7 @@ module.exports = function() {
   app.configure(language);
   app.configure(user);
   app.configure(doctor);
+  app.configure(patient);
   app.configure(category);
   app.configure(categoryTranslation);
   app.configure(procedure);
@@ -71,6 +73,12 @@ module.exports = function() {
 
   models.searches.belongsTo(models.categories);
   models.categories.hasMany(models.searches);
+
+  models.patients.belongsTo(models.languages);
+  models.languages.hasMany(models.patients);
+  models.patients.belongsTo(models.users);
+  models.patients.belongsToMany(models.doctors, {through: 'folders'});
+  models.doctors.belongsToMany(models.patients, {through: 'folders'});
 
   sequelize.sync();
 };

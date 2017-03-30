@@ -30,6 +30,7 @@ exports.before = {
     // auth.restrictToOwner({ ownerField: 'id' })
   ],
   patch: [
+    globalHooks.jsonapiDeserialize(),
     // auth.verifyToken(),
     // auth.populateUser(),
     // auth.restrictToAuthenticated(),
@@ -44,7 +45,7 @@ exports.before = {
 };
 
 exports.after = {
-  all: [hooks.remove('password'), globalHooks.jsonapiSerialize('users', {attributes: ['email', 'password','facebookId', 'googleId','linkedinId','createdAt', 'updatedAt']})],
+  all: [hooks.remove('password'), globalHooks.jsonapiSerialize('users', {attributes: ['email', 'password','facebookId', 'googleId','linkedinId','language', 'createdAt', 'updatedAt']})],
   find: [],
   get: [],
   create: [],

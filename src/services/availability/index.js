@@ -14,6 +14,8 @@ module.exports = function(){
   // Initialize our service with any options it requires
   app.use('/api/v1/doctors/:doctor_id/availabilities', {
     create(data, params) {
+      console.log('Create availabilities');
+      console.log(params);
       data.doctor_id = params.doctor_id;
 
       const algoliaClient = algoliasearch(app.get('algolia_options').app_id, app.get('algolia_options').apikey);
@@ -55,8 +57,10 @@ module.exports = function(){
         };
 
         //Add categories
-        if (cleanDoctor.categories) {
-          cleanDoctor.categories = cleanDoctor.categories.map(function(cat) {
+        console.log('Check categories');
+        console.log(cleanDoctor);
+        if (cleanDoctor.doctor.categories) {
+          cleanDoctor.categories = cleanDoctor.doctor.categories.map(function(cat) {
             return {id: cat.dataValues.id};
           });
         } else {
@@ -134,7 +138,9 @@ module.exports = function(){
         } while (batchIterRange.hasNext());
 
         //Add all items to the index
+        //console.log(doctors);
         return index.addObjects(doctors, function(err, content) {
+          console.log(err);
           console.log(content);
         });
       });

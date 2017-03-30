@@ -1,4 +1,6 @@
 'use strict';
+const patient = require('./patient');
+const opening = require('./opening');
 const search = require('./search');
 const availability = require('./availability');
 const event = require('./event');
@@ -27,4 +29,6 @@ module.exports = function() {
   app.configure(event);
   app.configure(availability);
   app.configure(search);
+  app.configure(opening);
+  app.configure(patient);
 };

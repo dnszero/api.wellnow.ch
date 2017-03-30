@@ -43,3 +43,19 @@ exports.jsonapiDeserialize = function (opts) {
     });
   };
 };
+
+exports.addUserIdToQueryParams = function (opts) {
+  return function(hook) {
+    return new Promise(function(resolve, reject) {
+      console.log('Extract User Id');
+      console.log(hook.params);
+      hook.params.query.userId = hook.params.payload.userId;
+      resolve(hook);
+      /*return new JSONAPIDeserializer(opts).deserialize(hook.data, function (err, data) {
+        console.log(data);
+        hook.data = data;
+        resolve(hook);
+      });*/
+    });
+  };
+};

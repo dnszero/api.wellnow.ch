@@ -2,34 +2,35 @@
 
 const userToUserId = require('./userToUserId');
 
-const geocode = require('./geocode');
+const geocode = require('../../../hooks/geocode');
 
 const algolia = require('./algolia');
 
 const globalHooks = require('../../../hooks');
 const hooks = require('feathers-hooks');
+const auth = require('feathers-authentication').hooks;
 
 
 exports.before = {
-  all: [],
-  find: [],
+  all: [auth.authenticate('jwt')],
+  find: [globalHooks.addUserIdToQueryParams()],
   get: [],
-  create: [globalHooks.jsonapiDeserialize({
+  create: [globalHooks.addUserIdToQueryParams(), globalHooks.jsonapiDeserialize({
     users: {
       valueForRelationship: function (relationship) {
         return parseInt(relationship.id);
       }
     }
-  }), userToUserId()],
-  update: [globalHooks.jsonapiDeserialize()],
-  patch: [globalHooks.jsonapiDeserialize({
+  }), geocode(), userToUserId()],
+  update: [globalHooks.addUserIdToQueryParams(), globalHooks.jsonapiDeserialize()],
+  patch: [globalHooks.addUserIdToQueryParams(), globalHooks.jsonapiDeserialize({
     categories: {
       valueForRelationship: function (relationship) {
         return parseInt(relationship.id);
       }
     }
-  })],
-  remove: []
+  }), geocode()],
+  remove: [globalHooks.addUserIdToQueryParams()]
 };
 
 exports.after = {
@@ -51,6 +52,6 @@ exports.after = {
   get: [],
   create: [algolia(), geocode()],
   update: [],
-  patch: [geocode()],
+  patch: [],
   remove: []
 };
